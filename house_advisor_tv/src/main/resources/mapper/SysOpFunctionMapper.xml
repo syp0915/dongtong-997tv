@@ -1,0 +1,255 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.nnstv.dao.SysOpFunctionMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.nnstv.domain.SysOpFunction">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="af_app" jdbcType="VARCHAR" property="afApp" />
+    <result column="af_module" jdbcType="VARCHAR" property="afModule" />
+    <result column="af_action" jdbcType="VARCHAR" property="afAction" />
+    <result column="af_name" jdbcType="VARCHAR" property="afName" />
+    <result column="af_description" jdbcType="VARCHAR" property="afDescription" />
+    <result column="af_menu_on" jdbcType="TINYINT" property="afMenuOn" />
+    <result column="af_menu_order" jdbcType="SMALLINT" property="afMenuOrder" />
+    <result column="af_menu_url" jdbcType="VARCHAR" property="afMenuUrl" />
+    <result column="af_log" jdbcType="BIT" property="afLog" />
+    <result column="af_time_create" jdbcType="TIMESTAMP" property="afTimeCreate" />
+    <result column="af_time_update" jdbcType="TIMESTAMP" property="afTimeUpdate" />
+    <result column="af_status" jdbcType="TINYINT" property="afStatus" />
+    <result column="af_done_count" jdbcType="INTEGER" property="afDoneCount" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, af_app, af_module, af_action, af_name, af_description, af_menu_on, af_menu_order, 
+    af_menu_url, af_log, af_time_create, af_time_update, af_status, af_done_count, creater, 
+    create_time, modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_op_function
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_op_function
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.nnstv.domain.SysOpFunction" useGeneratedKeys="true">
+    insert into sys_op_function (id, af_app, af_module, 
+      af_action, af_name, af_description, 
+      af_menu_on, af_menu_order, af_menu_url, 
+      af_log, af_time_create, af_time_update, 
+      af_status, af_done_count, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{afApp,jdbcType=VARCHAR}, #{afModule,jdbcType=VARCHAR}, 
+      #{afAction,jdbcType=VARCHAR}, #{afName,jdbcType=VARCHAR}, #{afDescription,jdbcType=VARCHAR}, 
+      #{afMenuOn,jdbcType=TINYINT}, #{afMenuOrder,jdbcType=SMALLINT}, #{afMenuUrl,jdbcType=VARCHAR}, 
+      #{afLog,jdbcType=BIT}, #{afTimeCreate,jdbcType=TIMESTAMP}, #{afTimeUpdate,jdbcType=TIMESTAMP}, 
+      #{afStatus,jdbcType=TINYINT}, #{afDoneCount,jdbcType=INTEGER}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.nnstv.domain.SysOpFunction" useGeneratedKeys="true">
+    insert into sys_op_function
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="afApp != null">
+        af_app,
+      </if>
+      <if test="afModule != null">
+        af_module,
+      </if>
+      <if test="afAction != null">
+        af_action,
+      </if>
+      <if test="afName != null">
+        af_name,
+      </if>
+      <if test="afDescription != null">
+        af_description,
+      </if>
+      <if test="afMenuOn != null">
+        af_menu_on,
+      </if>
+      <if test="afMenuOrder != null">
+        af_menu_order,
+      </if>
+      <if test="afMenuUrl != null">
+        af_menu_url,
+      </if>
+      <if test="afLog != null">
+        af_log,
+      </if>
+      <if test="afTimeCreate != null">
+        af_time_create,
+      </if>
+      <if test="afTimeUpdate != null">
+        af_time_update,
+      </if>
+      <if test="afStatus != null">
+        af_status,
+      </if>
+      <if test="afDoneCount != null">
+        af_done_count,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="afApp != null">
+        #{afApp,jdbcType=VARCHAR},
+      </if>
+      <if test="afModule != null">
+        #{afModule,jdbcType=VARCHAR},
+      </if>
+      <if test="afAction != null">
+        #{afAction,jdbcType=VARCHAR},
+      </if>
+      <if test="afName != null">
+        #{afName,jdbcType=VARCHAR},
+      </if>
+      <if test="afDescription != null">
+        #{afDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="afMenuOn != null">
+        #{afMenuOn,jdbcType=TINYINT},
+      </if>
+      <if test="afMenuOrder != null">
+        #{afMenuOrder,jdbcType=SMALLINT},
+      </if>
+      <if test="afMenuUrl != null">
+        #{afMenuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="afLog != null">
+        #{afLog,jdbcType=BIT},
+      </if>
+      <if test="afTimeCreate != null">
+        #{afTimeCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="afTimeUpdate != null">
+        #{afTimeUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="afStatus != null">
+        #{afStatus,jdbcType=TINYINT},
+      </if>
+      <if test="afDoneCount != null">
+        #{afDoneCount,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.nnstv.domain.SysOpFunction">
+    update sys_op_function
+    <set>
+      <if test="afApp != null">
+        af_app = #{afApp,jdbcType=VARCHAR},
+      </if>
+      <if test="afModule != null">
+        af_module = #{afModule,jdbcType=VARCHAR},
+      </if>
+      <if test="afAction != null">
+        af_action = #{afAction,jdbcType=VARCHAR},
+      </if>
+      <if test="afName != null">
+        af_name = #{afName,jdbcType=VARCHAR},
+      </if>
+      <if test="afDescription != null">
+        af_description = #{afDescription,jdbcType=VARCHAR},
+      </if>
+      <if test="afMenuOn != null">
+        af_menu_on = #{afMenuOn,jdbcType=TINYINT},
+      </if>
+      <if test="afMenuOrder != null">
+        af_menu_order = #{afMenuOrder,jdbcType=SMALLINT},
+      </if>
+      <if test="afMenuUrl != null">
+        af_menu_url = #{afMenuUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="afLog != null">
+        af_log = #{afLog,jdbcType=BIT},
+      </if>
+      <if test="afTimeCreate != null">
+        af_time_create = #{afTimeCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="afTimeUpdate != null">
+        af_time_update = #{afTimeUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="afStatus != null">
+        af_status = #{afStatus,jdbcType=TINYINT},
+      </if>
+      <if test="afDoneCount != null">
+        af_done_count = #{afDoneCount,jdbcType=INTEGER},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.nnstv.domain.SysOpFunction">
+    update sys_op_function
+    set af_app = #{afApp,jdbcType=VARCHAR},
+      af_module = #{afModule,jdbcType=VARCHAR},
+      af_action = #{afAction,jdbcType=VARCHAR},
+      af_name = #{afName,jdbcType=VARCHAR},
+      af_description = #{afDescription,jdbcType=VARCHAR},
+      af_menu_on = #{afMenuOn,jdbcType=TINYINT},
+      af_menu_order = #{afMenuOrder,jdbcType=SMALLINT},
+      af_menu_url = #{afMenuUrl,jdbcType=VARCHAR},
+      af_log = #{afLog,jdbcType=BIT},
+      af_time_create = #{afTimeCreate,jdbcType=TIMESTAMP},
+      af_time_update = #{afTimeUpdate,jdbcType=TIMESTAMP},
+      af_status = #{afStatus,jdbcType=TINYINT},
+      af_done_count = #{afDoneCount,jdbcType=INTEGER},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

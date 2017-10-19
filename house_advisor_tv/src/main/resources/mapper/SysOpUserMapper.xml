@@ -1,0 +1,231 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.nnstv.dao.SysOpUserMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.nnstv.domain.SysOpUser">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="au_name" jdbcType="VARCHAR" property="auName" />
+    <result column="au_password" jdbcType="VARCHAR" property="auPassword" />
+    <result column="ad_id" jdbcType="SMALLINT" property="adId" />
+    <result column="au_email" jdbcType="VARCHAR" property="auEmail" />
+    <result column="au_mobile" jdbcType="VARCHAR" property="auMobile" />
+    <result column="au_time_create" jdbcType="TIMESTAMP" property="auTimeCreate" />
+    <result column="au_time_update" jdbcType="TIMESTAMP" property="auTimeUpdate" />
+    <result column="au_status" jdbcType="TINYINT" property="auStatus" />
+    <result column="au_role_ids" jdbcType="VARCHAR" property="auRoleIds" />
+    <result column="au_login_count" jdbcType="INTEGER" property="auLoginCount" />
+    <result column="au_login_time" jdbcType="TIMESTAMP" property="auLoginTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, au_name, au_password, ad_id, au_email, au_mobile, au_time_create, au_time_update, 
+    au_status, au_role_ids, au_login_count, au_login_time, creater, create_time, modifier, 
+    modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from sys_op_user
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from sys_op_user
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.nnstv.domain.SysOpUser" useGeneratedKeys="true">
+    insert into sys_op_user (id, au_name, au_password, 
+      ad_id, au_email, au_mobile, 
+      au_time_create, au_time_update, au_status, 
+      au_role_ids, au_login_count, au_login_time, 
+      creater, create_time, modifier, 
+      modify_time, version)
+    values (#{id,jdbcType=BIGINT}, #{auName,jdbcType=VARCHAR}, #{auPassword,jdbcType=VARCHAR}, 
+      #{adId,jdbcType=SMALLINT}, #{auEmail,jdbcType=VARCHAR}, #{auMobile,jdbcType=VARCHAR}, 
+      #{auTimeCreate,jdbcType=TIMESTAMP}, #{auTimeUpdate,jdbcType=TIMESTAMP}, #{auStatus,jdbcType=TINYINT}, 
+      #{auRoleIds,jdbcType=VARCHAR}, #{auLoginCount,jdbcType=INTEGER}, #{auLoginTime,jdbcType=TIMESTAMP}, 
+      #{creater,jdbcType=BIGINT}, now(), #{modifier,jdbcType=BIGINT}, 
+      #{modifyTime,jdbcType=TIMESTAMP}, 0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.nnstv.domain.SysOpUser" useGeneratedKeys="true">
+    insert into sys_op_user
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="auName != null">
+        au_name,
+      </if>
+      <if test="auPassword != null">
+        au_password,
+      </if>
+      <if test="adId != null">
+        ad_id,
+      </if>
+      <if test="auEmail != null">
+        au_email,
+      </if>
+      <if test="auMobile != null">
+        au_mobile,
+      </if>
+      <if test="auTimeCreate != null">
+        au_time_create,
+      </if>
+      <if test="auTimeUpdate != null">
+        au_time_update,
+      </if>
+      <if test="auStatus != null">
+        au_status,
+      </if>
+      <if test="auRoleIds != null">
+        au_role_ids,
+      </if>
+      <if test="auLoginCount != null">
+        au_login_count,
+      </if>
+      <if test="auLoginTime != null">
+        au_login_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="auName != null">
+        #{auName,jdbcType=VARCHAR},
+      </if>
+      <if test="auPassword != null">
+        #{auPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adId != null">
+        #{adId,jdbcType=SMALLINT},
+      </if>
+      <if test="auEmail != null">
+        #{auEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="auMobile != null">
+        #{auMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="auTimeCreate != null">
+        #{auTimeCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auTimeUpdate != null">
+        #{auTimeUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auStatus != null">
+        #{auStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auRoleIds != null">
+        #{auRoleIds,jdbcType=VARCHAR},
+      </if>
+      <if test="auLoginCount != null">
+        #{auLoginCount,jdbcType=INTEGER},
+      </if>
+      <if test="auLoginTime != null">
+        #{auLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.nnstv.domain.SysOpUser">
+    update sys_op_user
+    <set>
+      <if test="auName != null">
+        au_name = #{auName,jdbcType=VARCHAR},
+      </if>
+      <if test="auPassword != null">
+        au_password = #{auPassword,jdbcType=VARCHAR},
+      </if>
+      <if test="adId != null">
+        ad_id = #{adId,jdbcType=SMALLINT},
+      </if>
+      <if test="auEmail != null">
+        au_email = #{auEmail,jdbcType=VARCHAR},
+      </if>
+      <if test="auMobile != null">
+        au_mobile = #{auMobile,jdbcType=VARCHAR},
+      </if>
+      <if test="auTimeCreate != null">
+        au_time_create = #{auTimeCreate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auTimeUpdate != null">
+        au_time_update = #{auTimeUpdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="auStatus != null">
+        au_status = #{auStatus,jdbcType=TINYINT},
+      </if>
+      <if test="auRoleIds != null">
+        au_role_ids = #{auRoleIds,jdbcType=VARCHAR},
+      </if>
+      <if test="auLoginCount != null">
+        au_login_count = #{auLoginCount,jdbcType=INTEGER},
+      </if>
+      <if test="auLoginTime != null">
+        au_login_time = #{auLoginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.nnstv.domain.SysOpUser">
+    update sys_op_user
+    set au_name = #{auName,jdbcType=VARCHAR},
+      au_password = #{auPassword,jdbcType=VARCHAR},
+      ad_id = #{adId,jdbcType=SMALLINT},
+      au_email = #{auEmail,jdbcType=VARCHAR},
+      au_mobile = #{auMobile,jdbcType=VARCHAR},
+      au_time_create = #{auTimeCreate,jdbcType=TIMESTAMP},
+      au_time_update = #{auTimeUpdate,jdbcType=TIMESTAMP},
+      au_status = #{auStatus,jdbcType=TINYINT},
+      au_role_ids = #{auRoleIds,jdbcType=VARCHAR},
+      au_login_count = #{auLoginCount,jdbcType=INTEGER},
+      au_login_time = #{auLoginTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

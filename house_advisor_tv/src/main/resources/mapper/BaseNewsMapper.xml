@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.nnstv.dao.BaseNewsMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.nnstv.domain.BaseNews">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="news_code" jdbcType="VARCHAR" property="newsCode" />
+    <result column="news_title" jdbcType="VARCHAR" property="newsTitle" />
+    <result column="news_digest" jdbcType="VARCHAR" property="newsDigest" />
+    <result column="news_url" jdbcType="VARCHAR" property="newsUrl" />
+    <result column="news_pic_url" jdbcType="VARCHAR" property="newsPicUrl" />
+    <result column="news_from" jdbcType="VARCHAR" property="newsFrom" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="browsing_times" jdbcType="INTEGER" property="browsingTimes" />
+    <result column="is_top" jdbcType="VARCHAR" property="isTop" />
+    <result column="video_url" jdbcType="VARCHAR" property="videoUrl" />
+    <result column="video_pic" jdbcType="VARCHAR" property="videoPic" />
+    <result column="begin_time" jdbcType="TIMESTAMP" property="beginTime" />
+    <result column="end_time" jdbcType="TIMESTAMP" property="endTime" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, news_code, news_title, news_digest, news_url, news_pic_url, news_from, status, 
+    browsing_times, is_top, video_url, video_pic, begin_time, end_time, creater, create_time, 
+    modifier, modify_time, version
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from base_news
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from base_news
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.nnstv.domain.BaseNews" useGeneratedKeys="true">
+    insert into base_news (id, news_code, news_title, 
+      news_digest, news_url, news_pic_url, 
+      news_from, status, browsing_times, 
+      is_top, video_url, video_pic, 
+      begin_time, end_time, creater, 
+      create_time, modifier, modify_time, 
+      version)
+    values (#{id,jdbcType=BIGINT}, #{newsCode,jdbcType=VARCHAR}, #{newsTitle,jdbcType=VARCHAR}, 
+      #{newsDigest,jdbcType=VARCHAR}, #{newsUrl,jdbcType=VARCHAR}, #{newsPicUrl,jdbcType=VARCHAR}, 
+      #{newsFrom,jdbcType=VARCHAR}, #{status,jdbcType=TINYINT}, #{browsingTimes,jdbcType=INTEGER}, 
+      #{isTop,jdbcType=VARCHAR}, #{videoUrl,jdbcType=VARCHAR}, #{videoPic,jdbcType=VARCHAR}, 
+      #{beginTime,jdbcType=TIMESTAMP}, #{endTime,jdbcType=TIMESTAMP}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0)
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.nnstv.domain.BaseNews" useGeneratedKeys="true">
+    insert into base_news
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="newsCode != null">
+        news_code,
+      </if>
+      <if test="newsTitle != null">
+        news_title,
+      </if>
+      <if test="newsDigest != null">
+        news_digest,
+      </if>
+      <if test="newsUrl != null">
+        news_url,
+      </if>
+      <if test="newsPicUrl != null">
+        news_pic_url,
+      </if>
+      <if test="newsFrom != null">
+        news_from,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="browsingTimes != null">
+        browsing_times,
+      </if>
+      <if test="isTop != null">
+        is_top,
+      </if>
+      <if test="videoUrl != null">
+        video_url,
+      </if>
+      <if test="videoPic != null">
+        video_pic,
+      </if>
+      <if test="beginTime != null">
+        begin_time,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="newsCode != null">
+        #{newsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTitle != null">
+        #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsDigest != null">
+        #{newsDigest,jdbcType=VARCHAR},
+      </if>
+      <if test="newsUrl != null">
+        #{newsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="newsPicUrl != null">
+        #{newsPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="newsFrom != null">
+        #{newsFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="browsingTimes != null">
+        #{browsingTimes,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null">
+        #{isTop,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPic != null">
+        #{videoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.nnstv.domain.BaseNews">
+    update base_news
+    <set>
+      <if test="newsCode != null">
+        news_code = #{newsCode,jdbcType=VARCHAR},
+      </if>
+      <if test="newsTitle != null">
+        news_title = #{newsTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="newsDigest != null">
+        news_digest = #{newsDigest,jdbcType=VARCHAR},
+      </if>
+      <if test="newsUrl != null">
+        news_url = #{newsUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="newsPicUrl != null">
+        news_pic_url = #{newsPicUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="newsFrom != null">
+        news_from = #{newsFrom,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="browsingTimes != null">
+        browsing_times = #{browsingTimes,jdbcType=INTEGER},
+      </if>
+      <if test="isTop != null">
+        is_top = #{isTop,jdbcType=VARCHAR},
+      </if>
+      <if test="videoUrl != null">
+        video_url = #{videoUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="videoPic != null">
+        video_pic = #{videoPic,jdbcType=VARCHAR},
+      </if>
+      <if test="beginTime != null">
+        begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.nnstv.domain.BaseNews">
+    update base_news
+    set news_code = #{newsCode,jdbcType=VARCHAR},
+      news_title = #{newsTitle,jdbcType=VARCHAR},
+      news_digest = #{newsDigest,jdbcType=VARCHAR},
+      news_url = #{newsUrl,jdbcType=VARCHAR},
+      news_pic_url = #{newsPicUrl,jdbcType=VARCHAR},
+      news_from = #{newsFrom,jdbcType=VARCHAR},
+      status = #{status,jdbcType=TINYINT},
+      browsing_times = #{browsingTimes,jdbcType=INTEGER},
+      is_top = #{isTop,jdbcType=VARCHAR},
+      video_url = #{videoUrl,jdbcType=VARCHAR},
+      video_pic = #{videoPic,jdbcType=VARCHAR},
+      begin_time = #{beginTime,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=TIMESTAMP},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  
+  
+  <select id="newsList" resultType="java.util.HashMap">
+    SELECT
+    bn.id AS informId,
+    bn.title AS informTitle,
+    (select mt.local_url from media m INNER JOIN media_tv_log mt on m.media_url=mt.origin_url where m.id=mr.media_id and m.`status`=3 and m.media_type=0) AS picUrl,
+    (select mt.local_url from media m INNER JOIN media_tv_log mt on m.media_url=mt.origin_url where m.id=mr.media_id and m.`status`=3 and m.media_type=1) AS videoUrl,
+    bn.`from` AS newsFrom,
+    DATE_FORMAT(bn.create_time,'%Y-%m-%d %H:%i:%s') AS publishTime
+    FROM
+    base_news bn
+    INNER JOIN media_rel mr on mr.biz_id=bn.id
+    where bn.`status`=#{query.status} and mr.type=1 and mr.is_del=0
+    order by bn.create_time desc
+  </select>
+  
+  <select id="queryNewsContent" resultType="com.shfc.nnstv.dto.httpbean.resp.NewsContentRespBean">
+    SELECT
+    bn.title AS informTitle,
+    (select mt.local_url from media m INNER JOIN media_tv_log mt on m.media_url=mt.origin_url where m.id=mr.media_id and m.`status`=3 and m.media_type=0) AS informPicUrl,
+    bn.`from` AS newsFrom,
+    DATE_FORMAT(bn.create_time,'%Y-%m-%d %H:%i:%s') AS publishTime,
+    bn.content as informContent,
+    (select mt.local_url from media m INNER JOIN media_tv_log mt on m.media_url=mt.origin_url where m.id=mr.media_id and m.`status`=3 and m.media_type=1)  as videoUrl,
+    (select mt.local_url from media m INNER JOIN media_tv_log mt on m.media_href=mt.origin_url where m.id=mr.media_id and m.`status`=3 and m.media_type=1)  as videoPic
+    FROM
+    base_news bn
+    INNER JOIN media_rel mr on mr.biz_id=bn.id
+    where bn.`status`=0 and mr.type=1 and mr.is_del=0  and
+    bn.id=#{newsCode,jdbcType=VARCHAR}
+  </select>
+</mapper>

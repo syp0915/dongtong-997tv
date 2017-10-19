@@ -1,0 +1,295 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.nnstv.dao.NnsEntrustProtocolMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.nnstv.domain.NnsEntrustProtocol">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="realtor_id" jdbcType="BIGINT" property="realtorId" />
+    <result column="nns_house_id" jdbcType="BIGINT" property="nnsHouseId" />
+    <result column="user_id" jdbcType="BIGINT" property="userId" />
+    <result column="total_price" jdbcType="DECIMAL" property="totalPrice" />
+    <result column="price_type" jdbcType="TINYINT" property="priceType" />
+    <result column="deadline" jdbcType="TINYINT" property="deadline" />
+    <result column="type" jdbcType="TINYINT" property="type" />
+    <result column="status" jdbcType="TINYINT" property="status" />
+    <result column="success_time" jdbcType="TIMESTAMP" property="successTime" />
+    <result column="overdue_time" jdbcType="TIMESTAMP" property="overdueTime" />
+    <result column="protocol_number" jdbcType="VARCHAR" property="protocolNumber" />
+    <result column="deal_url" jdbcType="VARCHAR" property="dealUrl" />
+    <result column="source" jdbcType="TINYINT" property="source" />
+    <result column="creater" jdbcType="BIGINT" property="creater" />
+    <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    <result column="modifier" jdbcType="BIGINT" property="modifier" />
+    <result column="modify_time" jdbcType="TIMESTAMP" property="modifyTime" />
+    <result column="version" jdbcType="BIGINT" property="version" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.shfc.nnstv.domain.NnsEntrustProtocol">
+    <result column="protocol_content" jdbcType="LONGVARCHAR" property="protocolContent" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, realtor_id, nns_house_id, user_id, total_price, price_type, deadline, type, status, 
+    success_time, overdue_time, protocol_number, deal_url, source, creater, create_time, 
+    modifier, modify_time, version
+  </sql>
+  <sql id="Blob_Column_List">
+    protocol_content
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from nns_entrust_protocol
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from nns_entrust_protocol
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.nnstv.domain.NnsEntrustProtocol" useGeneratedKeys="true">
+    insert into nns_entrust_protocol (id, realtor_id, nns_house_id, 
+      user_id, total_price, price_type, 
+      deadline, type, status, 
+      success_time, overdue_time, protocol_number, 
+      deal_url, source, creater, 
+      create_time, modifier, modify_time, 
+      version, protocol_content)
+    values (#{id,jdbcType=BIGINT}, #{realtorId,jdbcType=BIGINT}, #{nnsHouseId,jdbcType=BIGINT}, 
+      #{userId,jdbcType=BIGINT}, #{totalPrice,jdbcType=DECIMAL}, #{priceType,jdbcType=TINYINT}, 
+      #{deadline,jdbcType=TINYINT}, #{type,jdbcType=TINYINT}, #{status,jdbcType=TINYINT}, 
+      #{successTime,jdbcType=TIMESTAMP}, #{overdueTime,jdbcType=TIMESTAMP}, #{protocolNumber,jdbcType=VARCHAR}, 
+      #{dealUrl,jdbcType=VARCHAR}, #{source,jdbcType=TINYINT}, #{creater,jdbcType=BIGINT}, 
+      now(), #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 
+      0, #{protocolContent,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.nnstv.domain.NnsEntrustProtocol" useGeneratedKeys="true">
+    insert into nns_entrust_protocol
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="realtorId != null">
+        realtor_id,
+      </if>
+      <if test="nnsHouseId != null">
+        nns_house_id,
+      </if>
+      <if test="userId != null">
+        user_id,
+      </if>
+      <if test="totalPrice != null">
+        total_price,
+      </if>
+      <if test="priceType != null">
+        price_type,
+      </if>
+      <if test="deadline != null">
+        deadline,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="successTime != null">
+        success_time,
+      </if>
+      <if test="overdueTime != null">
+        overdue_time,
+      </if>
+      <if test="protocolNumber != null">
+        protocol_number,
+      </if>
+      <if test="dealUrl != null">
+        deal_url,
+      </if>
+      <if test="source != null">
+        source,
+      </if>
+      <if test="creater != null">
+        creater,
+      </if>
+      <if test="createTime != null">
+        create_time,
+      </if>
+      <if test="modifier != null">
+        modifier,
+      </if>
+      <if test="modifyTime != null">
+        modify_time,
+      </if>
+      <if test="version != null">
+        version,
+      </if>
+      <if test="protocolContent != null">
+        protocol_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="realtorId != null">
+        #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="nnsHouseId != null">
+        #{nnsHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null">
+        #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="priceType != null">
+        #{priceType,jdbcType=TINYINT},
+      </if>
+      <if test="deadline != null">
+        #{deadline,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=TINYINT},
+      </if>
+      <if test="successTime != null">
+        #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueTime != null">
+        #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="protocolNumber != null">
+        #{protocolNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUrl != null">
+        #{dealUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        #{source,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        now(),
+      </if>
+      <if test="modifier != null">
+        #{modifier,jdbcType=BIGINT},
+      </if>
+      <if test="modifyTime != null">
+        #{modifyTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="version != null">
+        0,
+      </if>
+      <if test="protocolContent != null">
+        #{protocolContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.nnstv.domain.NnsEntrustProtocol">
+    update nns_entrust_protocol
+    <set>
+      <if test="realtorId != null">
+        realtor_id = #{realtorId,jdbcType=BIGINT},
+      </if>
+      <if test="nnsHouseId != null">
+        nns_house_id = #{nnsHouseId,jdbcType=BIGINT},
+      </if>
+      <if test="userId != null">
+        user_id = #{userId,jdbcType=BIGINT},
+      </if>
+      <if test="totalPrice != null">
+        total_price = #{totalPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="priceType != null">
+        price_type = #{priceType,jdbcType=TINYINT},
+      </if>
+      <if test="deadline != null">
+        deadline = #{deadline,jdbcType=TINYINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=TINYINT},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=TINYINT},
+      </if>
+      <if test="successTime != null">
+        success_time = #{successTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="overdueTime != null">
+        overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="protocolNumber != null">
+        protocol_number = #{protocolNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="dealUrl != null">
+        deal_url = #{dealUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="source != null">
+        source = #{source,jdbcType=TINYINT},
+      </if>
+      <if test="creater != null">
+        creater = #{creater,jdbcType=BIGINT},
+      </if>
+      <if test="createTime != null">
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="modifier != null">
+        modifier = #{modifier,jdbcType=BIGINT},
+      </if>
+      modify_time = now(),
+      version = version+1
+      <if test="protocolContent != null">
+        protocol_content = #{protocolContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.shfc.nnstv.domain.NnsEntrustProtocol">
+    update nns_entrust_protocol
+    set realtor_id = #{realtorId,jdbcType=BIGINT},
+      nns_house_id = #{nnsHouseId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      price_type = #{priceType,jdbcType=TINYINT},
+      deadline = #{deadline,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+      protocol_number = #{protocolNumber,jdbcType=VARCHAR},
+      deal_url = #{dealUrl,jdbcType=VARCHAR},
+      source = #{source,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = #{modifyTime,jdbcType=TIMESTAMP},
+      version = #{version,jdbcType=BIGINT},
+      protocol_content = #{protocolContent,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.nnstv.domain.NnsEntrustProtocol">
+    update nns_entrust_protocol
+    set realtor_id = #{realtorId,jdbcType=BIGINT},
+      nns_house_id = #{nnsHouseId,jdbcType=BIGINT},
+      user_id = #{userId,jdbcType=BIGINT},
+      total_price = #{totalPrice,jdbcType=DECIMAL},
+      price_type = #{priceType,jdbcType=TINYINT},
+      deadline = #{deadline,jdbcType=TINYINT},
+      type = #{type,jdbcType=TINYINT},
+      status = #{status,jdbcType=TINYINT},
+      success_time = #{successTime,jdbcType=TIMESTAMP},
+      overdue_time = #{overdueTime,jdbcType=TIMESTAMP},
+      protocol_number = #{protocolNumber,jdbcType=VARCHAR},
+      deal_url = #{dealUrl,jdbcType=VARCHAR},
+      source = #{source,jdbcType=TINYINT},
+      creater = #{creater,jdbcType=BIGINT},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      modifier = #{modifier,jdbcType=BIGINT},
+      modify_time = now(),
+      version = version+1
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

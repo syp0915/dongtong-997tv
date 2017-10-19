@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.nnstv.dao.AttachMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.nnstv.domain.Attach">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="attach_name" jdbcType="VARCHAR" property="attachName" />
+    <result column="attach_url" jdbcType="VARCHAR" property="attachUrl" />
+    <result column="attach_type" jdbcType="VARCHAR" property="attachType" />
+    <result column="fastdfs_name" jdbcType="VARCHAR" property="fastdfsName" />
+    <result column="is_delete" jdbcType="BIGINT" property="isDelete" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, attach_name, attach_url, attach_type, fastdfs_name, is_delete
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from attach
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from attach
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.nnstv.domain.Attach" useGeneratedKeys="true">
+    insert into attach (id, attach_name, attach_url, 
+      attach_type, fastdfs_name, is_delete
+      )
+    values (#{id,jdbcType=BIGINT}, #{attachName,jdbcType=VARCHAR}, #{attachUrl,jdbcType=VARCHAR}, 
+      #{attachType,jdbcType=VARCHAR}, #{fastdfsName,jdbcType=VARCHAR}, #{isDelete,jdbcType=BIGINT}
+      )
+  </insert>
+  <insert id="insertSelective" keyProperty="id" parameterType="com.shfc.nnstv.domain.Attach" useGeneratedKeys="true">
+    insert into attach
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="attachName != null">
+        attach_name,
+      </if>
+      <if test="attachUrl != null">
+        attach_url,
+      </if>
+      <if test="attachType != null">
+        attach_type,
+      </if>
+      <if test="fastdfsName != null">
+        fastdfs_name,
+      </if>
+      <if test="isDelete != null">
+        is_delete,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="attachName != null">
+        #{attachName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachUrl != null">
+        #{attachUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attachType != null">
+        #{attachType,jdbcType=VARCHAR},
+      </if>
+      <if test="fastdfsName != null">
+        #{fastdfsName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        #{isDelete,jdbcType=BIGINT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.shfc.nnstv.domain.Attach">
+    update attach
+    <set>
+      <if test="attachName != null">
+        attach_name = #{attachName,jdbcType=VARCHAR},
+      </if>
+      <if test="attachUrl != null">
+        attach_url = #{attachUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="attachType != null">
+        attach_type = #{attachType,jdbcType=VARCHAR},
+      </if>
+      <if test="fastdfsName != null">
+        fastdfs_name = #{fastdfsName,jdbcType=VARCHAR},
+      </if>
+      <if test="isDelete != null">
+        is_delete = #{isDelete,jdbcType=BIGINT},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.shfc.nnstv.domain.Attach">
+    update attach
+    set attach_name = #{attachName,jdbcType=VARCHAR},
+      attach_url = #{attachUrl,jdbcType=VARCHAR},
+      attach_type = #{attachType,jdbcType=VARCHAR},
+      fastdfs_name = #{fastdfsName,jdbcType=VARCHAR},
+      is_delete = #{isDelete,jdbcType=BIGINT}
+    where id = #{id,jdbcType=BIGINT} and version = #{version,jdbcType=BIGINT}
+  </update>
+</mapper>

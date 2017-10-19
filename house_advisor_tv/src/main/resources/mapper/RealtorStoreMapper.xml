@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.shfc.nnstv.dao.RealtorStoreMapper">
+  <resultMap id="BaseResultMap" type="com.shfc.nnstv.domain.RealtorStore">
+    <result column="realtor_company_id" jdbcType="BIGINT" property="realtorCompanyId" />
+    <result column="store_code" jdbcType="VARCHAR" property="storeCode" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="store_address" jdbcType="VARCHAR" property="storeAddress" />
+    <result column="storeX" jdbcType="DECIMAL" property="storex" />
+    <result column="storeY" jdbcType="DECIMAL" property="storey" />
+    <result column="store_lon_lat" jdbcType="VARCHAR" property="storeLonLat" />
+    <result column="store_status" jdbcType="INTEGER" property="storeStatus" />
+    <association property="realtorCompany" javaType="com.shfc.nnstv.domain.RealtorCompany">
+      <result column="com_name" jdbcType="VARCHAR" property="comName" />
+      <result column="com_img" jdbcType="VARCHAR" property="comImg" />
+    </association>
+  </resultMap>
+
+  <sql id="Base_Column_List">
+    id, realtor_company_id, store_code, store_name, store_address, store_tel, store_fax,
+    storeX, storeY, store_lon_lat, filling_cer_no, store_status, store_img, shopowner,
+    shopowner_tel, shopowner_pic, creater, create_time, modifier, modify_time, version,
+    is_auth
+  </sql>
+
+  <insert id="insert" keyProperty="id" parameterType="com.shfc.nnstv.domain.RealtorStore" useGeneratedKeys="true">
+    insert into realtor_store (id, realtor_company_id, store_code,
+    store_name, store_address, store_tel,
+    store_fax, storeX, storeY,
+    store_lon_lat, filling_cer_no, store_status,
+    store_img, shopowner, shopowner_tel,
+    shopowner_pic, creater, create_time,
+    modifier, modify_time, version,
+    is_auth)
+    values (#{id,jdbcType=BIGINT}, #{realtorCompanyId,jdbcType=BIGINT}, #{storeCode,jdbcType=VARCHAR},
+    #{storeName,jdbcType=VARCHAR}, #{storeAddress,jdbcType=VARCHAR}, #{storeTel,jdbcType=VARCHAR},
+    #{storeFax,jdbcType=VARCHAR}, #{storex,jdbcType=DECIMAL}, #{storey,jdbcType=DECIMAL},
+    #{storeLonLat,jdbcType=VARCHAR}, #{fillingCerNo,jdbcType=VARCHAR}, #{storeStatus,jdbcType=INTEGER},
+    #{storeImg,jdbcType=VARCHAR}, #{shopowner,jdbcType=VARCHAR}, #{shopownerTel,jdbcType=VARCHAR},
+    #{shopownerPic,jdbcType=VARCHAR}, #{creater,jdbcType=BIGINT}, now(),
+    #{modifier,jdbcType=BIGINT}, #{modifyTime,jdbcType=TIMESTAMP}, 0,
+    #{isAuth,jdbcType=BIT})
+  </insert>
+
+  <resultMap id="BaseMap" type="com.shfc.nnstv.dto.RealtorStoreDTO">
+    <result column="realtor_company_id" jdbcType="BIGINT" property="realtorCompanyId" />
+    <result column="store_code" jdbcType="VARCHAR" property="storeCode" />
+    <result column="store_name" jdbcType="VARCHAR" property="storeName" />
+    <result column="store_address" jdbcType="VARCHAR" property="storeAddress" />
+    <result column="storeX" jdbcType="DECIMAL" property="storex" />
+    <result column="storeY" jdbcType="DECIMAL" property="storey" />
+    <result column="store_lon_lat" jdbcType="VARCHAR" property="storeLonLat" />
+    <result column="store_status" jdbcType="INTEGER" property="storeStatus" />
+    <result column="com_name" jdbcType="VARCHAR" property="realtorCompanyName" />
+    <result column="comImg" jdbcType="VARCHAR" property="realtorCompanyImg" />
+
+  </resultMap>
+
+  <select id="getMechanismListByCondition"  resultMap="BaseMap" parameterType="java.util.HashMap">
+    select
+    rs.id,
+    rs.store_name,
+    if(isnull(rc.com_abbr),rc.com_abbr,rc.com_name) com_name,
+    (select mt.local_url from media_tv_log mt where mt.origin_url=rc.com_img) as comImg,
+    fun_distance(#{query.latitude}, #{query.longitude}, rs.storeX, rs.storeY) distance
+     from realtor_store rs LEFT JOIN realtor_company  rc ON rs.realtor_company_id=rc.id
+     where rs.store_status=0 and rs.is_del=0 and LENGTH(rc.com_img )!=0
+     and  rc.com_status=0 and rc.is_del=0
+     and INSTR(rs.store_name,'东同科技')=0
+     and INSTR(rc.com_name,'上海东同电子商务有限公司')=0
+    ORDER BY distance ASC
+  </select>
+
+  <select id="selectStorePlot" resultType="string" parameterType="long">
+    select p.plot_name
+    from  realtor_store rs LEFT JOIN realtor_store_ext_rel  re ON rs.id=re.store_id and re.rel_type=2
+    LEFT JOIN plot p ON re.rel_id=p.id where rs.id=#{relId,jdbcType=BIGINT} and LENGTH(p.plot_name)!=0
+    and p.plot_status=0
+  </select>
+
+  <select id="queryStorePlot" resultType="string" parameterType="long">
+    SELECT DISTINCT i.building_name_list from realtor_info i
+       INNER JOIN realtor_unitive_account t on i.realtor_id=t.id
+    where t.type=0 and t.status=1 and i.store_id=#{storeId,jdbcType=BIGINT}
+    and LENGTH(i.building_name_list)!=0
+  </select>
+
+  <select id="selectStoreTotal" resultType="int">
+    SELECT  COUNT(*) from realtor_store rs LEFT JOIN realtor_company  rc ON rs.realtor_company_id=rc.id
+     where rs.store_status=0 and rs.is_del=0 and  LENGTH(rc.com_img)!=0
+     and  rc.com_status=0 and rc.is_del=0
+     and INSTR(rs.store_name,'东同科技')=0
+     and INSTR(rc.com_name,'上海东同电子商务有限公司')=0
+  </select>
+
+  <select id="findStoreByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+    select
+    <include refid="Base_Column_List" />
+    from realtor_store
+    where store_name = #{storeName,jdbcType=BIGINT}
+    limit 1
+  </select>
+
+</mapper>
